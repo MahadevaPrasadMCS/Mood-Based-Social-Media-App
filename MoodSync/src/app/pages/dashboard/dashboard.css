@@ -1,0 +1,158 @@
+.dashboard-container {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.dashboard-header-card {
+    width: 100%;
+
+    background: white;
+
+    border: 1px solid #efedf5;
+    border-radius: 18px;
+
+    padding: 18px 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.03);
+}
+
+/* LEFT */
+.dashboard-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+
+    color: #1f2937;
+
+    line-height: 1.2;
+}
+
+.dashboard-subtitle {
+    font-size: 0.95rem;
+
+    color: #6b7280;
+
+    line-height: 1.5;
+}
+
+/* FILTER BUTTON */
+
+/* DROPDOWN */
+
+.custom-filter-dropdown {
+    position: relative;
+}
+
+/* TRIGGER */
+
+.filter-trigger {
+    height: 42px;
+
+    padding: 0 14px;
+
+    border: 1px solid #e8e5f2;
+    border-radius: 12px;
+
+    background: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.filter-trigger:hover {
+    border-color: #d8d1ea;
+}
+
+/* LEFT */
+
+.filter-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 0.92rem;
+    font-weight: 600;
+
+    color: #4b5563;
+}
+
+/* ARROW */
+
+.dropdown-arrow {
+    display: flex;
+    align-items: center;
+
+    transition: 0.25s ease;
+}
+
+.dropdown-arrow.rotate {
+    transform: rotate(180deg);
+}
+
+/* OPTIONS */
+
+.filter-options {
+    position: absolute;
+
+    top: 52px;
+    right: 0;
+
+    min-width: 190px;
+
+    background: white;
+
+    border: 1px solid #ebe9f3;
+    border-radius: 16px;
+
+    padding: 8px;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.08);
+
+    z-index: 1000;
+
+    animation: dropdownAnimation 0.2s ease;
+}
+
+/* OPTION */
+
+.filter-option {
+    height: 44px;
+
+    padding: 0 14px;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.filter-option:hover {
+    background: #f5f3ff;
+    color: #7c3aed;
+}

@@ -1,0 +1,199 @@
+<aside
+    class="sidebar-container"
+    [class.collapsed]="isCollapsed"
+>
+
+    <!-- TOP SECTION -->
+
+    <div class="sidebar-top">
+
+        <!-- TOGGLE BUTTON -->
+
+        <button
+            class="toggle-btn"
+            (click)="toggleSidebar()"
+        >
+
+            <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+            >
+                <path
+                    d="M4 6H20"
+                    stroke="currentColor"
+                    stroke-width="2.4"
+                    stroke-linecap="round"
+                />
+
+                <path
+                    d="M4 12H20"
+                    stroke="currentColor"
+                    stroke-width="2.4"
+                    stroke-linecap="round"
+                />
+
+                <path
+                    d="M4 18H20"
+                    stroke="currentColor"
+                    stroke-width="2.4"
+                    stroke-linecap="round"
+                />
+            </svg>
+
+        </button>
+
+    </div>
+
+    <!-- MENU -->
+
+    <nav class="sidebar-menu">
+
+        <!-- DASHBOARD -->
+
+        <a
+            routerLink="/dashboard"
+            routerLinkActive="active-link"
+            class="menu-item"
+        >
+
+            <!-- ICON -->
+
+            <span class="menu-icon">
+
+                <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                >
+
+                    <rect
+                        x="3"
+                        y="3"
+                        width="7"
+                        height="7"
+                        rx="2"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    />
+
+                    <rect
+                        x="14"
+                        y="3"
+                        width="7"
+                        height="7"
+                        rx="2"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    />
+
+                    <rect
+                        x="14"
+                        y="14"
+                        width="7"
+                        height="7"
+                        rx="2"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    />
+
+                    <rect
+                        x="3"
+                        y="14"
+                        width="7"
+                        height="7"
+                        rx="2"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    />
+
+                </svg>
+
+            </span>
+
+            <!-- LABEL -->
+
+            <span
+                class="menu-label"
+                *ngIf="!isCollapsed"
+                routerLink="/dashboard"
+            >
+                Dashboard
+            </span>
+
+            <!-- TOOLTIP -->
+
+            <span
+                class="tooltip"
+                *ngIf="isCollapsed"
+                routerLink="/dashboard"
+            >
+                Dashboard
+            </span>
+
+        </a>
+
+        <!-- CREATE POST -->
+
+        <a
+            routerLink="/create-post"
+            routerLinkActive="active-link"
+            class="menu-item"
+        >
+
+            <!-- ICON -->
+
+            <span class="menu-icon">
+
+                <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                >
+
+                    <path
+                        d="M12 5V19"
+                        stroke="currentColor"
+                        stroke-width="2.4"
+                        stroke-linecap="round"
+                    />
+
+                    <path
+                        d="M5 12H19"
+                        stroke="currentColor"
+                        stroke-width="2.4"
+                        stroke-linecap="round"
+                    />
+
+                </svg>
+
+            </span>
+
+            <!-- LABEL -->
+
+            <span
+                class="menu-label"
+                *ngIf="!isCollapsed"
+                routerLink="/create-post"
+            >
+                Create Post
+            </span>
+
+            <!-- TOOLTIP -->
+
+            <span
+                class="tooltip"
+                *ngIf="isCollapsed"
+                routerLink="/create-post"
+            >
+                Create Post
+            </span>
+
+        </a>
+
+    </nav>
+
+</aside>

@@ -1,93 +1,93 @@
 <div class="post-card">
 
-    <!-- TOP -->
+  <!-- TOP -->
 
-    <div class="post-header">
+  <div class="post-header">
 
-        <!-- USER -->
+    <!-- USER -->
 
-        <div class="user-info">
+    <div class="user-info">
 
-            <img
-                [src]="userAvatar"
-                alt="User"
-                class="user-avatar"
-            >
+      <img
+        [src]="userAvatar"
+        alt="User"
+        class="user-avatar"
+      >
 
-            <div class="user-details">
+      <div class="user-details">
 
                 <span class="username">
                     {{ username }}
                 </span>
 
-                <span class="mood-badge">
+        <span class="mood-badge">
                     {{ mood }}
                 </span>
 
-            </div>
-
-        </div>
+      </div>
 
     </div>
 
-    <!-- CONTENT -->
+  </div>
 
-    <div class="post-content">
+  <!-- CONTENT -->
 
-        {{ content }}
+  <div class="post-content">
 
-    </div>
+    {{ content }}
 
-    <!-- IMAGE -->
+  </div>
 
-    @if (imageUrl) {
+  <!-- IMAGE -->
 
-        <div class="post-image-wrapper">
+  @if (imageUrl) {
 
-            <img
-                [src]="imageUrl"
-                alt="Post Image"
-                class="post-image"
-            >
+  <div class="post-image-wrapper">
 
-        </div>
+    <img
+      [src]="imageUrl"
+      alt="Post Image"
+      class="post-image"
+    >
 
-    }
+  </div>
 
-    <!-- ACTIONS -->
+  }
 
-    <div class="post-actions">
+  <!-- ACTIONS -->
 
-        <button
-            class="like-btn"
-            [class.liked]="isLiked"
-            (click)="toggleLike()"
-        >
+  <div class="post-actions">
 
-            <!-- HEART ICON -->
+    <button
+      class="like-btn"
+      [class.liked]="isLiked"
+      (click)="toggleLike()"
+    >
 
-            <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-            >
+      <!-- HEART ICON -->
 
-                <path
-                    d="M12 21C12 21 4 16 4 9.5C4 6.46243 6.46243 4 9.5 4C11.1569 4 12.6771 4.89543 13.5 6.25C14.3229 4.89543 15.8431 4 17.5 4C20.5376 4 23 6.46243 23 9.5C23 16 15 21 15 21H12Z"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linejoin="round"
-                />
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
 
-            </svg>
+        <path
+          d="M12 21C12 21 4 16 4 9.5C4 6.46243 6.46243 4 9.5 4C11.1569 4 12.6771 4.89543 13.5 6.25C14.3229 4.89543 15.8431 4 17.5 4C20.5376 4 23 6.46243 23 9.5C23 16 15 21 15 21H12Z"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linejoin="round"
+        />
 
-            <span>
+      </svg>
+
+      <span>
                 {{ likes }}
             </span>
 
-        </button>
+    </button>
 
-    </div>
+  </div>
 
 </div>

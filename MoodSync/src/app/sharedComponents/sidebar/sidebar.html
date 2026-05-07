@@ -1,199 +1,199 @@
 <aside
-    class="sidebar-container"
-    [class.collapsed]="isCollapsed"
+  class="sidebar-container"
+  [class.collapsed]="isCollapsed"
 >
 
-    <!-- TOP SECTION -->
+  <!-- TOP SECTION -->
 
-    <div class="sidebar-top">
+  <div class="sidebar-top">
 
-        <!-- TOGGLE BUTTON -->
+    <!-- TOGGLE BUTTON -->
 
-        <button
-            class="toggle-btn"
-            (click)="toggleSidebar()"
-        >
+    <button
+      class="toggle-btn"
+      (click)="toggleSidebar()"
+    >
 
-            <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-            >
-                <path
-                    d="M4 6H20"
-                    stroke="currentColor"
-                    stroke-width="2.4"
-                    stroke-linecap="round"
-                />
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          d="M4 6H20"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+        />
 
-                <path
-                    d="M4 12H20"
-                    stroke="currentColor"
-                    stroke-width="2.4"
-                    stroke-linecap="round"
-                />
+        <path
+          d="M4 12H20"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+        />
 
-                <path
-                    d="M4 18H20"
-                    stroke="currentColor"
-                    stroke-width="2.4"
-                    stroke-linecap="round"
-                />
-            </svg>
+        <path
+          d="M4 18H20"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+        />
+      </svg>
 
-        </button>
+    </button>
 
-    </div>
+  </div>
 
-    <!-- MENU -->
+  <!-- MENU -->
 
-    <nav class="sidebar-menu">
+  <nav class="sidebar-menu">
 
-        <!-- DASHBOARD -->
+    <!-- DASHBOARD -->
 
-        <a
-            routerLink="/dashboard"
-            routerLinkActive="active-link"
-            class="menu-item"
-        >
+    <a
+      routerLink="/dashboard"
+      routerLinkActive="active-link"
+      class="menu-item"
+    >
 
-            <!-- ICON -->
+      <!-- ICON -->
 
-            <span class="menu-icon">
+      <span class="menu-icon">
 
                 <svg
-                    width="22"
-                    height="22"
-                    viewBox="0 0 24 24"
-                    fill="none"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
                 >
 
                     <rect
-                        x="3"
-                        y="3"
-                        width="7"
-                        height="7"
-                        rx="2"
-                        stroke="currentColor"
-                        stroke-width="2"
+                      x="3"
+                      y="3"
+                      width="7"
+                      height="7"
+                      rx="2"
+                      stroke="currentColor"
+                      stroke-width="2"
                     />
 
                     <rect
-                        x="14"
-                        y="3"
-                        width="7"
-                        height="7"
-                        rx="2"
-                        stroke="currentColor"
-                        stroke-width="2"
+                      x="14"
+                      y="3"
+                      width="7"
+                      height="7"
+                      rx="2"
+                      stroke="currentColor"
+                      stroke-width="2"
                     />
 
                     <rect
-                        x="14"
-                        y="14"
-                        width="7"
-                        height="7"
-                        rx="2"
-                        stroke="currentColor"
-                        stroke-width="2"
+                      x="14"
+                      y="14"
+                      width="7"
+                      height="7"
+                      rx="2"
+                      stroke="currentColor"
+                      stroke-width="2"
                     />
 
                     <rect
-                        x="3"
-                        y="14"
-                        width="7"
-                        height="7"
-                        rx="2"
-                        stroke="currentColor"
-                        stroke-width="2"
+                      x="3"
+                      y="14"
+                      width="7"
+                      height="7"
+                      rx="2"
+                      stroke="currentColor"
+                      stroke-width="2"
                     />
 
                 </svg>
 
             </span>
 
-            <!-- LABEL -->
+      <!-- LABEL -->
 
-            <span
-                class="menu-label"
-                *ngIf="!isCollapsed"
-                routerLink="/dashboard"
-            >
+      <span
+        class="menu-label"
+        *ngIf="!isCollapsed"
+        routerLink="/dashboard"
+      >
                 Dashboard
             </span>
 
-            <!-- TOOLTIP -->
+      <!-- TOOLTIP -->
 
-            <span
-                class="tooltip"
-                *ngIf="isCollapsed"
-                routerLink="/dashboard"
-            >
+      <span
+        class="tooltip"
+        *ngIf="isCollapsed"
+        routerLink="/dashboard"
+      >
                 Dashboard
             </span>
 
-        </a>
+    </a>
 
-        <!-- CREATE POST -->
+    <!-- CREATE POST -->
 
-        <a
-            routerLink="/create-post"
-            routerLinkActive="active-link"
-            class="menu-item"
-        >
+    <a
+      routerLink="/create-post"
+      routerLinkActive="active-link"
+      class="menu-item"
+    >
 
-            <!-- ICON -->
+      <!-- ICON -->
 
-            <span class="menu-icon">
+      <span class="menu-icon">
 
                 <svg
-                    width="22"
-                    height="22"
-                    viewBox="0 0 24 24"
-                    fill="none"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
                 >
 
                     <path
-                        d="M12 5V19"
-                        stroke="currentColor"
-                        stroke-width="2.4"
-                        stroke-linecap="round"
+                      d="M12 5V19"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
                     />
 
                     <path
-                        d="M5 12H19"
-                        stroke="currentColor"
-                        stroke-width="2.4"
-                        stroke-linecap="round"
+                      d="M5 12H19"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
                     />
 
                 </svg>
 
             </span>
 
-            <!-- LABEL -->
+      <!-- LABEL -->
 
-            <span
-                class="menu-label"
-                *ngIf="!isCollapsed"
-                routerLink="/create-post"
-            >
+      <span
+        class="menu-label"
+        *ngIf="!isCollapsed"
+        routerLink="/create-post"
+      >
                 Create Post
             </span>
 
-            <!-- TOOLTIP -->
+      <!-- TOOLTIP -->
 
-            <span
-                class="tooltip"
-                *ngIf="isCollapsed"
-                routerLink="/create-post"
-            >
+      <span
+        class="tooltip"
+        *ngIf="isCollapsed"
+        routerLink="/create-post"
+      >
                 Create Post
             </span>
 
-        </a>
+    </a>
 
-    </nav>
+  </nav>
 
 </aside>

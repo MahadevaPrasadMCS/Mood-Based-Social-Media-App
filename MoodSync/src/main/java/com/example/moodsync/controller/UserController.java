@@ -1,9 +1,9 @@
-package controller;
+package com.example.moodsync.controller;
 
-import dto.LoginRequest;
-import dto.RegisterRequest;
+import com.example.moodsync.dto.LoginRequest;
+import com.example.moodsync.dto.RegisterRequest;
 import org.springframework.web.bind.annotation.*;
-import service.UserService;
+import com.example.moodsync.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")

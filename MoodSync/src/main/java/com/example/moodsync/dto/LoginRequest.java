@@ -1,4 +1,4 @@
-package dto;
+package com.example.moodsync.dto;
 
 public class LoginRequest {
 

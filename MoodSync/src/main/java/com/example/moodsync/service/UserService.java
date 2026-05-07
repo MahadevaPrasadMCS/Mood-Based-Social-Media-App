@@ -1,10 +1,10 @@
-package service;
+package com.example.moodsync.service;
 
-import dto.LoginRequest;
-import dto.RegisterRequest;
-import entity.UserEntity;
+import com.example.moodsync.dto.LoginRequest;
+import com.example.moodsync.dto.RegisterRequest;
+import com.example.moodsync.entity.UserEntity;
 import org.springframework.stereotype.Service;
-import repository.UserRepository;
+import com.example.moodsync.repository.UserRepository;
 
 @Service
 public class UserService {

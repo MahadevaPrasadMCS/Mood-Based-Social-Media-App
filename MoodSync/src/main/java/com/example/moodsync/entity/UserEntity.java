@@ -1,4 +1,4 @@
-package entity;
+package com.example.moodsync.entity;
 
 import jakarta.persistence.*;
 

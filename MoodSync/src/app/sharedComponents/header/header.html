@@ -1,279 +1,279 @@
 <header class="header-container">
 
-    <!-- LEFT SECTION -->
+  <!-- LEFT SECTION -->
 
-    <div class="logo-section">
+  <div class="logo-section">
 
-        <img
-            src="logo.png"
-            alt="MoodSync"
-            class="logo-icon"
-        >
+    <img
+      src="logo.png"
+      alt="MoodSync"
+      class="logo-icon"
+    >
 
-        <h2 class="logo-text">
-            MoodSync
-        </h2>
+    <h2 class="logo-text">
+      MoodSync
+    </h2>
 
-    </div>
+  </div>
 
-    <!-- CENTER SECTION -->
+  <!-- CENTER SECTION -->
 
-    <div class="center-section">
+  <div class="center-section">
 
-        <!-- MOOD DROPDOWN -->
+    <!-- MOOD DROPDOWN -->
 
-        <div class="custom-dropdown">
+    <div class="custom-dropdown">
 
-            <!-- Trigger -->
+      <!-- Trigger -->
 
-            <div
-                class="dropdown-trigger"
-                (click)="toggleMoodDropdown()"
-            >
+      <div
+        class="dropdown-trigger"
+        (click)="toggleMoodDropdown()"
+      >
 
-                <div class="emoji-circle">
-                    {{ selectedMood.icon }}
-                </div>
+        <div class="emoji-circle">
+          {{ selectedMood.icon }}
+        </div>
 
-                <div class="dropdown-text">
+        <div class="dropdown-text">
 
                     <span class="dropdown-label">
                         Mood:
                     </span>
 
-                    <strong>
-                        {{ selectedMood.label }}
-                    </strong>
+          <strong>
+            {{ selectedMood.label }}
+          </strong>
 
-                </div>
+        </div>
 
-                <span
-                    class="dropdown-arrow"
-                    [class.rotate]="isMoodDropdownOpen"
-                >
+        <span
+          class="dropdown-arrow"
+          [class.rotate]="isMoodDropdownOpen"
+        >
                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                    >
+                       width="18"
+                       height="18"
+                       viewBox="0 0 24 24"
+                       fill="none"
+                     >
                         <path
-                            d="M6 9L12 15L18 9"
-                            stroke="currentColor"
-                            stroke-width="2.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                          d="M6 9L12 15L18 9"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
                         />
                     </svg>
                 </span>
 
-            </div>
+      </div>
 
-            <!-- Menu -->
+      <!-- Menu -->
 
-            <div
-                class="dropdown-menu"
-                *ngIf="isMoodDropdownOpen"
-            >
+      <div
+        class="dropdown-menu"
+        *ngIf="isMoodDropdownOpen"
+      >
 
-                <div
-                    class="dropdown-item"
-                    *ngFor="let mood of moods"
-                    (click)="selectMood(mood)"
-                >
+        <div
+          class="dropdown-item"
+          *ngFor="let mood of moods"
+          (click)="selectMood(mood)"
+        >
 
                     <span class="item-icon">
                         {{ mood.icon }}
                     </span>
 
-                    <span>
+          <span>
                         {{ mood.label }}
                     </span>
 
-                </div>
+        </div>
 
-            </div>
+      </div>
+
+    </div>
+
+    <!-- INTENT DROPDOWN -->
+
+    <div class="custom-dropdown">
+
+      <!-- Trigger -->
+
+      <div
+        class="dropdown-trigger"
+        (click)="toggleIntentDropdown()"
+      >
+
+        <div class="intent-ring">
+
+          <div class="intent-dot"></div>
 
         </div>
 
-        <!-- INTENT DROPDOWN -->
-
-        <div class="custom-dropdown">
-
-            <!-- Trigger -->
-
-            <div
-                class="dropdown-trigger"
-                (click)="toggleIntentDropdown()"
-            >
-
-                <div class="intent-ring">
-
-                    <div class="intent-dot"></div>
-
-                </div>
-
-                <div class="dropdown-text">
+        <div class="dropdown-text">
 
                     <span class="dropdown-label">
                         Intent:
                     </span>
 
-                    <strong>
-                        {{ selectedIntent.label }}
-                    </strong>
+          <strong>
+            {{ selectedIntent.label }}
+          </strong>
 
-                </div>
+        </div>
 
-                <span
-                    class="dropdown-arrow"
-                    [class.rotate]="isIntentDropdownOpen"
-                >
+        <span
+          class="dropdown-arrow"
+          [class.rotate]="isIntentDropdownOpen"
+        >
                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                    >
+                       width="18"
+                       height="18"
+                       viewBox="0 0 24 24"
+                       fill="none"
+                     >
                         <path
-                            d="M6 9L12 15L18 9"
-                            stroke="currentColor"
-                            stroke-width="2.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                          d="M6 9L12 15L18 9"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
                         />
                     </svg>
                 </span>
 
-            </div>
+      </div>
 
-            <!-- Menu -->
+      <!-- Menu -->
 
-            <div
-                class="dropdown-menu"
-                *ngIf="isIntentDropdownOpen"
-            >
+      <div
+        class="dropdown-menu"
+        *ngIf="isIntentDropdownOpen"
+      >
 
-                <div
-                    class="dropdown-item"
-                    *ngFor="let intent of intents"
-                    (click)="selectIntent(intent)"
-                >
+        <div
+          class="dropdown-item"
+          *ngFor="let intent of intents"
+          (click)="selectIntent(intent)"
+        >
 
                     <span>
                         {{ intent.label }}
                     </span>
 
-                </div>
-
-            </div>
-
         </div>
 
-        <!-- SEARCH -->
+      </div>
 
-        <div class="search-wrapper">
+    </div>
+
+    <!-- SEARCH -->
+
+    <div class="search-wrapper">
 
             <span class="search-icon">
 
                 <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
                 >
 
                     <circle
-                        cx="11"
-                        cy="11"
-                        r="7"
-                        stroke="currentColor"
-                        stroke-width="2"
+                      cx="11"
+                      cy="11"
+                      r="7"
+                      stroke="currentColor"
+                      stroke-width="2"
                     />
 
                     <path
-                        d="M20 20L17 17"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
+                      d="M20 20L17 17"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
                     />
 
                 </svg>
 
             </span>
 
-            <input
-                type="text"
-                class="search-input"
-                placeholder="Search posts, people..."
-            >
-
-        </div>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search posts, people..."
+      >
 
     </div>
 
-    <!-- RIGHT SECTION -->
+  </div>
 
-    <div class="actions-section">
+  <!-- RIGHT SECTION -->
 
-        <!-- Notification -->
+  <div class="actions-section">
 
-        <div class="notification-bell">
+    <!-- Notification -->
 
-            🔔
+    <div class="notification-bell">
 
-            <span class="notification-badge">
+      🔔
+
+      <span class="notification-badge">
                 3
             </span>
 
-        </div>
+    </div>
 
-        <!-- Profile -->
+    <!-- Profile -->
 
-        <div class="profile-group" 
-            (click)="toggleProfileDropdown(); $event.stopPropagation()">
+    <div class="profile-group"
+         (click)="toggleProfileDropdown(); $event.stopPropagation()">
 
-            <img
-                src="profile.jpg"
-                alt="User"
-                class="avatar"
-            >
+      <img
+        src="profile.jpg"
+        alt="User"
+        class="avatar"
+      >
 
-            <span class="profile-arrow">
+      <span class="profile-arrow">
                     <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
                     >
                         <path
-                            d="M6 9L12 15L18 9"
-                            stroke="currentColor"
-                            stroke-width="2.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                          d="M6 9L12 15L18 9"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
                         />
                     </svg>
             </span>
 
-             <div
-                class="profile-dropdown"
-                *ngIf="isProfileDropdownOpen"
-            >
-                <div
-                    class="dropdown-item"
-                    (click)="loadProfile()"
-                >
-                    View Profile
-                </div>
-
-                <div
-                    class="dropdown-item"
-                    (click)="onLogout()"
-                >
-                    Logout
-                </div>
-            </div>
+      <div
+        class="profile-dropdown"
+        *ngIf="isProfileDropdownOpen"
+      >
+        <div
+          class="dropdown-item"
+          (click)="loadProfile()"
+        >
+          View Profile
         </div>
+
+        <div
+          class="dropdown-item"
+          (click)="onLogout()"
+        >
+          Logout
+        </div>
+      </div>
     </div>
+  </div>
 </header>

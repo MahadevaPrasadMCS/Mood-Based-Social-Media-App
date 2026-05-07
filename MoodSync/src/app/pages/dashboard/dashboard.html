@@ -1,133 +1,133 @@
 <div class="dashboard-container">
-    <div class="dashboard-header-card">
+  <div class="dashboard-header-card">
 
-        <!-- LEFT -->
+    <!-- LEFT -->
 
-        <div class="dashboard-info">
+    <div class="dashboard-info">
 
-            <div class="dashboard-title">
-                Dashboard
-            </div>
+      <div class="dashboard-title">
+        Dashboard
+      </div>
 
-            <div class="dashboard-subtitle">
-                Posts that match your mood and intent
-            </div>
+      <div class="dashboard-subtitle">
+        Posts that match your mood and intent
+      </div>
 
-        </div>
+    </div>
 
-        <!-- RIGHT -->
+    <!-- RIGHT -->
 
-        <div class="custom-filter-dropdown">
+    <div class="custom-filter-dropdown">
 
-        <!-- SELECTED -->
+      <!-- SELECTED -->
 
-        <div
-            class="filter-trigger"
-            (click)="toggleFilterDropdown()"
-        >
+      <div
+        class="filter-trigger"
+        (click)="toggleFilterDropdown()"
+      >
 
-            <div class="filter-left">
+        <div class="filter-left">
 
-                <!-- ICON -->
+          <!-- ICON -->
 
-                <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
 
-                    <path
-                        d="M4 7H20"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                    />
+            <path
+              d="M4 7H20"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
 
-                    <path
-                        d="M7 12H17"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                    />
+            <path
+              d="M7 12H17"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
 
-                    <path
-                        d="M10 17H14"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                    />
+            <path
+              d="M10 17H14"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
 
-                </svg>
+          </svg>
 
-                <span>
+          <span>
                     {{ selectedFilter }}
                 </span>
 
-            </div>
+        </div>
 
-            <!-- ARROW -->
+        <!-- ARROW -->
 
-            <span
-                class="dropdown-arrow"
-                [class.rotate]="isFilterDropdownOpen"
-            >
+        <span
+          class="dropdown-arrow"
+          [class.rotate]="isFilterDropdownOpen"
+        >
 
                 <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
                 >
 
                     <path
-                        d="M6 9L12 15L18 9"
-                        stroke="currentColor"
-                        stroke-width="2.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                      d="M6 9L12 15L18 9"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
                     />
 
                 </svg>
 
             </span>
 
-        </div>
+      </div>
 
-        <!-- OPTIONS -->
+      <!-- OPTIONS -->
+
+      <div
+        class="filter-options"
+        *ngIf="isFilterDropdownOpen"
+      >
+
+        @for (filter of searchFilters; track filter) {
 
         <div
-            class="filter-options"
-            *ngIf="isFilterDropdownOpen"
+          class="filter-option"
+          (click)="selectFilter(filter)"
         >
 
-            @for (filter of searchFilters; track filter) {
-
-                <div
-                    class="filter-option"
-                    (click)="selectFilter(filter)"
-                >
-
-                    {{ filter }}
-
-                </div>
-
-            }
+          {{ filter }}
 
         </div>
 
-    </div>
+        }
+
+      </div>
 
     </div>
 
-    <app-post-card
-        username="Prasad"
-        userAvatar="assets/user-avatar.jpg"
-        mood="😊 Happy"
-        content="Feeling productive today and building MoodSync 🚀"
-        imageUrl="assets/sample-post.jpg"
-        [likes]="24"
-        [isLiked]="false"
-    >
-    </app-post-card>
+  </div>
+
+  <app-post-card
+    username="Prasad"
+    userAvatar="assets/user-avatar.jpg"
+    mood="😊 Happy"
+    content="Feeling productive today and building MoodSync 🚀"
+    imageUrl="assets/sample-post.jpg"
+    [likes]="24"
+    [isLiked]="false"
+  >
+  </app-post-card>
 </div>

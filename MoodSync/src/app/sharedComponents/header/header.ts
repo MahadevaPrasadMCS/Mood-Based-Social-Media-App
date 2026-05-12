@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { FeedFilterService } from '../../services/filterService/feedfilterservice';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,9 @@ import { Router } from '@angular/router';
 })
 export class Header {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+    private feedFilterService: FeedFilterService
+  ) {}
   /* ---------------- MOOD DROPDOWN ---------------- */
 
   isMoodDropdownOpen = false;
@@ -58,7 +61,7 @@ export class Header {
   }
 
   loadProfile() {
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/user/profile']);
   }
   
   onLogout() {
@@ -77,7 +80,13 @@ export class Header {
   }
 
   selectMood(mood: any) {
+
     this.selectedMood = mood;
+
+    this.feedFilterService.setMood(
+      mood.label
+    );
+
     this.isMoodDropdownOpen = false;
   }
 
@@ -93,7 +102,13 @@ export class Header {
   }
 
   selectIntent(intent: any) {
+
     this.selectedIntent = intent;
+
+    this.feedFilterService.setIntent(
+      intent.label
+    );
+
     this.isIntentDropdownOpen = false;
   }
 

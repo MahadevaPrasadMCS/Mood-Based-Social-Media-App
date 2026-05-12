@@ -96,12 +96,24 @@
   border: 1px solid #ddd;
 }
 
-.password-wrapper {
+.field-wrapper {
+  position: relative;
   display: flex;
+  align-items: center;
 }
 
-.password-wrapper input {
-  flex: 1;
+.toggle-password {
+  position: absolute;
+  right: 14px;
+
+  border: none;
+  background: none;
+
+  color: #7c3aed;
+
+  font-weight: 700;
+
+  cursor: pointer;
 }
 
 /* EXTRAS */
@@ -110,6 +122,13 @@
   justify-content: space-between;
   font-size: 0.85rem;
   margin: 1rem 0;
+  cursor: pointer;
+}
+
+.form-extras a {
+  color: #7227f3;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 /* BUTTON */
@@ -130,6 +149,7 @@
 }
 
 .auth-switch-link {
+  cursor: pointer;
   color: #7227f3;
   font-weight: bold;
 }

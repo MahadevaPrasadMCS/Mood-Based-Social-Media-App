@@ -6,6 +6,8 @@ import com.example.moodsync.entity.UserEntity;
 import org.springframework.stereotype.Service;
 import com.example.moodsync.repository.UserRepository;
 
+import java.util.Map;
+
 @Service
 public class UserService {
 
@@ -16,11 +18,15 @@ public class UserService {
   }
 
   // REGISTER
-  public String register(RegisterRequest request) {
+  public Map<String, Object> register(RegisterRequest request) {
 
     // Check existing email
     if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-      return "Email already exists";
+
+      return Map.of(
+        "success", false,
+        "message", "Email already exists"
+      );
     }
 
     UserEntity user = new UserEntity();
@@ -33,25 +39,48 @@ public class UserService {
 
     userRepository.save(user);
 
-    return "User registered successfully";
+    return Map.of(
+      "success", true,
+      "message", "User registered successfully",
+      "user", Map.of(
+        "id", user.getId(),
+        "username", user.getUserName(),
+        "email", user.getEmail()
+      )
+    );
   }
 
   // LOGIN
-  public String login(LoginRequest request) {
+  public Map<String, Object> login(LoginRequest request) {
 
     UserEntity user = userRepository
       .findByEmail(request.getEmail())
       .orElse(null);
 
     if (user == null) {
-      return "User not found";
+
+      return Map.of(
+        "success", false,
+        "message", "User not found"
+      );
     }
 
-    // Compare plain text passwords
     if (!user.getPassword().equals(request.getPassword())) {
-      return "Invalid password";
+
+      return Map.of(
+        "success", false,
+        "message", "Invalid Email or password"
+      );
     }
 
-    return "Login successful";
+    return Map.of(
+      "success", true,
+      "message", "Login successful",
+      "user", Map.of(
+        "id", user.getId(),
+        "username", user.getUserName(),
+        "email", user.getEmail()
+      )
+    );
   }
 }

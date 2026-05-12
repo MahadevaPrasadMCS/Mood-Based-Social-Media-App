@@ -56,22 +56,6 @@
 
         </div>
 
-        <!-- SUCCESS -->
-        <div
-          class="success-banner"
-          *ngIf="successMessage"
-        >
-          {{ successMessage }}
-        </div>
-
-        <!-- ERROR -->
-        <div
-          class="error-banner"
-          *ngIf="errorMessage"
-        >
-          {{ errorMessage }}
-        </div>
-
         <!-- FORM -->
         <form
           [formGroup]="registerForm"
@@ -193,6 +177,8 @@
 
         </form>
 
+        <div class="auth-divider"></div>
+        
         <!-- LOGIN -->
         <p class="auth-switch">
 

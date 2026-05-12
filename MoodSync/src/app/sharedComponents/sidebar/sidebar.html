@@ -9,6 +9,14 @@
 
     <!-- TOGGLE BUTTON -->
 
+    <h3
+      class="user-name"
+      *ngIf="!isCollapsed"
+    >
+
+      {{ userName }}
+    </h3>
+
     <button
       class="toggle-btn"
       (click)="toggleSidebar()"
@@ -50,150 +58,131 @@
 
   <nav class="sidebar-menu">
 
-    <!-- DASHBOARD -->
+  <a
+    *ngFor="let item of menuItems"
+    [routerLink]="item.route"
+    routerLinkActive="active-link"
+    class="menu-item"
+  >
 
-    <a
-      routerLink="/dashboard"
-      routerLinkActive="active-link"
-      class="menu-item"
+    <!-- ICON -->
+
+    <span class="menu-icon">
+
+      <!-- DASHBOARD ICON -->
+
+      <ng-container
+        *ngIf="item.icon === 'dashboard'"
+      >
+
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+
+          <rect
+            x="3"
+            y="3"
+            width="7"
+            height="7"
+            rx="2"
+            stroke="currentColor"
+            stroke-width="2"
+          />
+
+          <rect
+            x="14"
+            y="3"
+            width="7"
+            height="7"
+            rx="2"
+            stroke="currentColor"
+            stroke-width="2"
+          />
+
+          <rect
+            x="14"
+            y="14"
+            width="7"
+            height="7"
+            rx="2"
+            stroke="currentColor"
+            stroke-width="2"
+          />
+
+          <rect
+            x="3"
+            y="14"
+            width="7"
+            height="7"
+            rx="2"
+            stroke="currentColor"
+            stroke-width="2"
+          />
+
+        </svg>
+
+      </ng-container>
+
+      <!-- CREATE POST ICON -->
+
+      <ng-container
+        *ngIf="item.icon === 'create-post'"
+      >
+
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+
+          <path
+            d="M12 5V19"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+          />
+
+          <path
+            d="M5 12H19"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+          />
+
+        </svg>
+
+      </ng-container>
+
+    </span>
+
+    <!-- LABEL -->
+
+    <span
+      class="menu-label"
+      *ngIf="!isCollapsed"
     >
 
-      <!-- ICON -->
+      {{ item.label }}
 
-      <span class="menu-icon">
+    </span>
 
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
+    <!-- TOOLTIP -->
 
-                    <rect
-                      x="3"
-                      y="3"
-                      width="7"
-                      height="7"
-                      rx="2"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    />
-
-                    <rect
-                      x="14"
-                      y="3"
-                      width="7"
-                      height="7"
-                      rx="2"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    />
-
-                    <rect
-                      x="14"
-                      y="14"
-                      width="7"
-                      height="7"
-                      rx="2"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    />
-
-                    <rect
-                      x="3"
-                      y="14"
-                      width="7"
-                      height="7"
-                      rx="2"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    />
-
-                </svg>
-
-            </span>
-
-      <!-- LABEL -->
-
-      <span
-        class="menu-label"
-        *ngIf="!isCollapsed"
-        routerLink="/dashboard"
-      >
-                Dashboard
-            </span>
-
-      <!-- TOOLTIP -->
-
-      <span
-        class="tooltip"
-        *ngIf="isCollapsed"
-        routerLink="/dashboard"
-      >
-                Dashboard
-            </span>
-
-    </a>
-
-    <!-- CREATE POST -->
-
-    <a
-      routerLink="/create-post"
-      routerLinkActive="active-link"
-      class="menu-item"
+    <span
+      class="tooltip"
+      *ngIf="isCollapsed"
     >
 
-      <!-- ICON -->
+      {{ item.label }}
 
-      <span class="menu-icon">
+    </span>
 
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
+  </a>
 
-                    <path
-                      d="M12 5V19"
-                      stroke="currentColor"
-                      stroke-width="2.4"
-                      stroke-linecap="round"
-                    />
-
-                    <path
-                      d="M5 12H19"
-                      stroke="currentColor"
-                      stroke-width="2.4"
-                      stroke-linecap="round"
-                    />
-
-                </svg>
-
-            </span>
-
-      <!-- LABEL -->
-
-      <span
-        class="menu-label"
-        *ngIf="!isCollapsed"
-        routerLink="/create-post"
-      >
-                Create Post
-            </span>
-
-      <!-- TOOLTIP -->
-
-      <span
-        class="tooltip"
-        *ngIf="isCollapsed"
-        routerLink="/create-post"
-      >
-                Create Post
-            </span>
-
-    </a>
-
-  </nav>
+</nav>
 
 </aside>

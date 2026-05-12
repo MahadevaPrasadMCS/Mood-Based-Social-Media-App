@@ -1,6 +1,9 @@
 package com.example.moodsync.entity;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -16,6 +19,13 @@ public class UserEntity {
   private String email;
 
   private String password;
+
+  @JsonIgnore
+  @OneToMany(
+    mappedBy = "user",
+    cascade = CascadeType.ALL
+  )
+  private List<PostEntity> posts;
 
   public Long getId() {
     return id;
@@ -43,5 +53,13 @@ public class UserEntity {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public List<PostEntity> getPosts() {
+    return posts;
+  }
+
+  public void setPosts(List<PostEntity> posts) {
+    this.posts = posts;
   }
 }

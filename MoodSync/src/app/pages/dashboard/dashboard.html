@@ -119,15 +119,43 @@
     </div>
 
   </div>
+  <div class="posts-wrapper">
 
-  <app-post-card
-    username="Prasad"
-    userAvatar="assets/user-avatar.jpg"
-    mood="😊 Happy"
-    content="Feeling productive today and building MoodSync 🚀"
-    imageUrl="assets/sample-post.jpg"
-    [likes]="24"
+    <app-post-card
+    *ngFor="
+      let post of filteredPosts
+    "
+
+    [postId]="post.id"
+    
+    [username]="
+      post.user.userName
+    "
+
+    [userAvatar]="
+      'https://i.pravatar.cc/100'
+    "
+
+    [mood]="
+      post.mood
+    "
+
+    [content]="
+      post.caption
+    "
+
+    [imageUrl]="
+      post.imageUrl
+    "
+
+    [likes]="
+      post.likes
+    "
+
     [isLiked]="false"
+
   >
   </app-post-card>
+
+  </div>
 </div>

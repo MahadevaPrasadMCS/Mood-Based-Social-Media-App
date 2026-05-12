@@ -29,9 +29,6 @@ export class Register implements OnInit {
 
   isLoading = false;
 
-  errorMessage = '';
-  successMessage = '';
-
   showPassword = false;
   showConfirmPassword = false;
 
@@ -101,64 +98,64 @@ export class Register implements OnInit {
 
   onSubmit(): void {
 
-    // reset messages
-    this.errorMessage = '';
-    this.successMessage = '';
+  if (this.registerForm.invalid) {
+    return;
+  }
 
-    // form validation
-    if (this.registerForm.invalid) {
+  if (
+    this.password?.value !==
+    this.confirmPassword?.value
+  ) {
+    alert('Passwords do not match!');
+    this.registerForm.reset();
+    return;
+  }
 
-      this.registerForm.markAllAsTouched();
+  this.isLoading = true;
 
-      return;
-    }
+  const userData = new RegisterModel(
 
-    const formData = this.registerForm.value;
+    this.username?.value,
+    this.email?.value,
+    this.password?.value
 
-    // password match validation
-    if (formData.password !== formData.confirmPassword) {
+  );
 
-      this.errorMessage = 'Passwords do not match';
-
-      return;
-    }
-
-    this.isLoading = true;
-
-    // create model object
-    const user = new RegisterModel(
-      formData.username,
-      formData.email,
-      formData.password
-    );
-
-    // API call
-    this.authService.register(user).subscribe({
+  this.authService.register(userData)
+    .subscribe({
 
       next: (response) => {
 
-        console.log(response);
-
         this.isLoading = false;
 
-        this.successMessage = 'Registration Successful';
+        if (response.success) {
 
-        // redirect to login
-        setTimeout(() => {
+          this.authService.saveUser(
+            response.user
+          );
 
-          this.router.navigate(['/login']);
+          alert('Registration successful! Redirecting to login...');
 
-        }, 1500);
+          setTimeout(() => {
+
+            this.router.navigate([
+              '/login'
+            ]);
+
+          }, 2000);
+
+        } else {
+            alert(response.message);
+            this.registerForm.reset();
+        }
       },
 
-      error: (error) => {
-
-        console.error(error);
+      error: () => {
 
         this.isLoading = false;
-
-        this.errorMessage = 'Registration Failed';
+        alert('An error occurred. Please try again later.');
+        this.registerForm.reset();
       }
     });
-  }
+}
 }

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PostService } from '../../services/postService/postservice';
 
 @Component({
   selector: 'app-post-card',
@@ -9,6 +10,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./post-card.css'],
 })
 export class PostCard {
+
+  constructor(private postService: PostService) {}
+
+  @Input() postId = 0;
 
   @Input() username = '';
 
@@ -26,12 +31,44 @@ export class PostCard {
 
   toggleLike() {
 
-    this.isLiked = !this.isLiked;
+  const user =
 
-    if (this.isLiked) {
-      this.likes++;
-    } else {
-      this.likes--;
-    }
+    JSON.parse(
+
+      localStorage.getItem(
+        'user'
+      ) || '{}'
+    );
+
+  this.postService
+
+    .toggleLike(
+
+      this.postId,
+
+      user.id
+    )
+
+    .subscribe({
+
+      next: (response: any) => {
+
+        this.isLiked =
+          response.liked;
+
+        this.likes =
+          response.likes;
+
+        console.log(
+          'LIKE RESPONSE:',
+          response
+        );
+      },
+
+      error: (error) => {
+
+        console.error(error);
+      }
+    });
   }
 }

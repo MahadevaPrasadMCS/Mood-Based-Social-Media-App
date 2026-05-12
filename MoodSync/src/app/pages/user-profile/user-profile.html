@@ -1,1 +1,197 @@
-<p>user-profile works!</p>
+<div class="profile-page">
+
+  <!-- MAIN CONTENT -->
+
+  <div class="profile-main">
+
+    <!-- PROFILE HEADER -->
+
+    <section class="profile-header">
+
+      <!-- LEFT -->
+
+      <div class="profile-info">
+
+        <img
+          [src]="user.image"
+          alt="Profile"
+          class="profile-image"
+        />
+
+        <div class="profile-content">
+
+          <h2 class="profile-name">
+            {{ user.name }}
+          </h2>
+
+          <p class="profile-username">
+            {{ user.username }}
+          </p>
+
+          <p class="profile-bio">
+            {{ user.bio }}
+          </p>
+
+          <button class="edit-btn">
+            Edit Profile
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- TABS -->
+
+    <div class="profile-tabs">
+
+      <button class="tab active-tab">
+        Posts
+      </button>
+
+      <button class="tab">
+        About
+      </button>
+
+      <button class="tab">
+        Mood History
+      </button>
+
+    </div>
+
+    <!-- POSTS -->
+
+    <section class="profile-posts">
+
+      <div
+        class="post-card"
+        *ngFor="let post of posts"
+      >
+
+        <!-- POST TOP -->
+
+        <div class="post-top">
+
+          <div class="post-user">
+
+            <img
+              [src]="user.image"
+              class="post-user-image"
+            />
+
+            <div>
+
+              <h4>
+                {{ user.name }}
+              </h4>
+
+              <span>
+                {{ post.time }}
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="post-mood">
+
+            {{ post.mood }}
+
+          </div>
+
+        </div>
+
+        <!-- CAPTION -->
+
+        <p class="post-caption">
+
+          {{ post.caption }}
+
+        </p>
+
+        <!-- IMAGE -->
+
+        <img
+          [src]="post.image"
+          class="post-image"
+          alt="Post"
+        />
+
+        <!-- ACTIONS -->
+
+        <div class="post-actions">
+
+          <button>
+            ❤️ {{ post.likes }}
+          </button>
+
+          <button>
+            💬 Comment
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+
+  <aside class="profile-sidebar">
+
+    <!-- STATS -->
+
+    <div class="sidebar-card">
+
+      <h3>
+        Profile Overview
+      </h3>
+
+      <div class="stat-row">
+
+        <span>
+          Posts
+        </span>
+
+        <strong>
+          {{ user.posts }}
+        </strong>
+
+      </div>
+
+      <div class="stat-row">
+
+        <span>
+          Likes
+        </span>
+
+        <strong>
+          {{ user.likes }}
+        </strong>
+
+      </div>
+
+    </div>
+
+    <!-- MOOD SUMMARY -->
+
+    <div class="sidebar-card">
+
+      <h3>
+        Mood Summary
+      </h3>
+
+      <div class="mood-summary">
+
+        😊 Mostly Happy
+
+      </div>
+
+    </div>
+
+  </aside>
+
+</div>

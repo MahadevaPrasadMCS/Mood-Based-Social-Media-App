@@ -1,0 +1,364 @@
+<div class="create-post-page">
+
+  <!-- MAIN -->
+
+  <div class="create-post-main">
+
+    <!-- HEADER -->
+
+    <div class="create-header">
+
+      <h2>
+        Create a New Post
+      </h2>
+
+      <p>
+        Share your thoughts, feelings
+        and experiences with the community.
+      </p>
+
+    </div>
+
+    <!-- FORM -->
+
+    <form
+
+      [formGroup]="postForm"
+
+      (ngSubmit)="createPost()"
+
+      class="post-form"
+    >
+
+      <!-- CAPTION -->
+
+      <div class="form-group">
+
+        <label>
+          What's on your mind?
+        </label>
+
+        <textarea
+
+          formControlName="caption"
+
+          placeholder="Write something..."
+
+          rows="6"
+
+        >
+        </textarea>
+
+      </div>
+
+      <!-- MOOD -->
+
+      <div class="form-group">
+
+        <label>
+          Select Mood
+        </label>
+
+        <select
+          formControlName="mood"
+        >
+
+          <option
+
+            *ngFor="
+              let mood of moods
+            "
+
+            [value]="mood"
+          >
+
+            {{ mood }}
+
+          </option>
+
+        </select>
+
+      </div>
+
+      <!-- IMAGE UPLOAD -->
+
+      <div class="form-group">
+
+        <label>
+          Upload Image
+        </label>
+
+        <div class="upload-box">
+
+          <input
+
+            type="file"
+
+            accept="image/*"
+
+            (change)="onImageSelect($event)"
+          />
+
+          <p>
+            Drag and drop or choose image
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- IMAGE EDITOR -->
+
+      <div
+
+        class="editor-wrapper"
+
+        *ngIf="imageChangedEvent"
+      >
+
+        <!-- CROPPER -->
+
+        <image-cropper
+
+          [imageChangedEvent]="
+            imageChangedEvent
+          "
+
+          [maintainAspectRatio]="false"
+
+          [resizeToWidth]="1080"
+
+          [transform]="{
+            scale: zoomScale,
+            rotate: rotation
+          }"
+
+          format="png"
+
+          (imageCropped)="
+            imageCropped($event)
+          "
+
+        >
+        </image-cropper>
+
+        <!-- CONTROLS -->
+
+        <div class="editor-controls">
+
+          <!-- ZOOM -->
+
+          <button
+
+            type="button"
+
+            (click)="zoomOut()"
+          >
+
+            ➖
+
+          </button>
+
+          <button
+
+            type="button"
+
+            (click)="zoomIn()"
+          >
+
+            ➕
+
+          </button>
+
+          <!-- ROTATE -->
+
+          <button
+
+            type="button"
+
+            (click)="rotateLeft()"
+          >
+
+            ↺
+
+          </button>
+
+          <button
+
+            type="button"
+
+            (click)="rotateRight()"
+          >
+
+            ↻
+
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- PREVIEW -->
+
+      <div
+
+        class="preview-wrapper"
+
+        *ngIf="imagePreview"
+      >
+
+        <h4>
+          Preview
+        </h4>
+
+        <img
+
+          [src]="imagePreview"
+
+          alt="Preview"
+
+          class="preview-image"
+        />
+
+      </div>
+
+      <!-- ACTIONS -->
+
+      <div class="post-actions">
+
+        <button
+
+          type="button"
+
+          class="cancel-btn"
+        >
+
+          Cancel
+
+        </button>
+
+        <button
+
+          type="submit"
+
+          class="post-btn"
+
+          [disabled]="isUploading"
+        >
+
+          {{
+
+            isUploading
+
+              ?
+
+              'Posting...'
+
+              :
+
+              'Post'
+          }}
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+  <!-- RIGHT SIDEBAR -->
+
+  <aside class="create-sidebar">
+
+    <!-- TIPS -->
+
+    <div class="sidebar-card">
+
+      <h3>
+        💡 Post Tips
+      </h3>
+
+      <ul>
+
+        <li>
+          Be authentic
+        </li>
+
+        <li>
+          Spread positivity
+        </li>
+
+        <li>
+          Respect others
+        </li>
+
+        <li>
+          Share meaningful moments
+        </li>
+
+      </ul>
+
+    </div>
+
+    <!-- MOOD GUIDE -->
+
+    <div class="sidebar-card">
+
+      <h3>
+        Mood Guide
+      </h3>
+
+      <div class="recent-post">
+
+        <strong>
+          😊 Happy
+        </strong>
+
+        <p>
+          Positive and joyful moments
+        </p>
+
+      </div>
+
+      <div class="recent-post">
+
+        <strong>
+          😔 Sad
+        </strong>
+
+        <p>
+          Emotional or difficult moments
+        </p>
+
+      </div>
+
+      <div class="recent-post">
+
+        <strong>
+          🌿 Relax
+        </strong>
+
+        <p>
+          Peaceful and calm vibes
+        </p>
+
+      </div>
+
+      <div class="recent-post">
+
+        <strong>
+          😵 Stress
+        </strong>
+
+        <p>
+          Challenging and overwhelming moments
+        </p>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+</div>

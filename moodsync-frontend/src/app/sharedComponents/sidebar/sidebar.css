@@ -1,0 +1,190 @@
+/* SIDEBAR */
+
+.sidebar-container {
+    width: 240px;
+
+    min-height: calc(100vh - 88px);
+
+    background: #faf9fc;
+
+    padding: 5px 14px;
+
+    transition: 0.28s ease;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+}
+
+/* COLLAPSED */
+
+.sidebar-container.collapsed {
+    width: 88px;
+}
+
+/* TOP */
+
+.sidebar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 26px;
+}
+
+/* TOGGLE BUTTON */
+
+.toggle-btn {
+    width: 48px;
+    height: 48px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: #faf7ff;
+
+    color: #7c3aed;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.toggle-btn:hover {
+    background: #f3e8ff;
+
+    transform: translateY(-1px);
+}
+
+/* MENU */
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* MENU ITEM */
+
+.menu-item {
+    position: relative;
+
+    height: 52px;
+
+    border-radius: 16px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 0 16px;
+
+    text-decoration: none;
+
+    color: #4b5563;
+
+    transition: 0.22s ease;
+}
+
+/* HOVER */
+
+.menu-item:hover {
+    background: #f3efff;
+    color: #7c3aed;
+}
+
+/* ACTIVE */
+
+.menu-item.active-link {
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #a855f7
+        );
+
+    color: white;
+
+    box-shadow:
+        0 8px 24px rgba(139, 92, 246, 0.25);
+}
+
+/* ICON */
+
+.menu-icon {
+    min-width: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* LABEL */
+
+.menu-label {
+    font-size: 15px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+/* TOOLTIP */
+
+.tooltip {
+    position: absolute;
+
+    left: 78px;
+
+    background: #111827;
+    color: white;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    padding: 8px 12px;
+
+    border-radius: 10px;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transform: translateX(-8px);
+
+    transition: 0.2s ease;
+
+    white-space: nowrap;
+}
+
+/* SHOW TOOLTIP */
+
+.sidebar-container.collapsed .menu-item:hover .tooltip {
+    opacity: 1;
+
+    transform: translateX(0);
+}
+
+/* SCROLLBAR */
+
+.sidebar-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-container::-webkit-scrollbar-thumb {
+    background: #ddd6fe;
+    border-radius: 10px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .sidebar-container {
+        display: none;
+    }
+}

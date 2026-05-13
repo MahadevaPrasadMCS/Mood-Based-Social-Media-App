@@ -1,0 +1,52 @@
+.layout-container {
+    display: grid;
+
+    grid-template-columns: auto 1fr;
+
+    grid-template-rows:
+        88px
+        1fr
+        auto;
+
+    grid-template-areas:
+        "header header"
+        "sidebar content"
+        "footer footer";
+
+    min-height: 100vh;
+
+    background: #f8f8fb;
+}
+
+/* HEADER */
+
+.header {
+    grid-area: header;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 1000;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    grid-area: sidebar;
+}
+
+/* CONTENT */
+
+.content {
+    grid-area: content;
+
+    padding: 20px;
+
+    min-width: 0;
+}
+
+/* FOOTER */
+
+.footer {
+    grid-area: footer;
+}

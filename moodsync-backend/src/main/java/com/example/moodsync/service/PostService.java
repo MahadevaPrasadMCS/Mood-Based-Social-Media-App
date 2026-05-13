@@ -99,7 +99,7 @@ public class PostService {
                 response.setUserAvatar(
                     post.getUser().getProfileImage() != null
                         ? post.getUser().getProfileImage()
-                        : "https://i.pravatar.cc/150?img=" + post.getUser().getId()
+                        : "pravatar.cc" + post.getUser().getId()
                 );
 
                 boolean liked = postLikeRepository.findByPostAndUser(post, currentUser).isPresent();
@@ -148,37 +148,20 @@ public class PostService {
         intent = intent.trim();
 
         switch (mood) {
-            case "Happy" -> {
-                System.out.println("MOOD = " + mood);
-                System.out.println("INTENT = " + intent);
-                String recommendedMoods = "Happy";
-                System.out.println("RECOMMENDED = " + recommendedMoods);
+            case "Happy":
                 return List.of("Happy");
-            }
-            case "Sad" -> {
+
+            case "Sad":
                 if (intent.equalsIgnoreCase("Improve")) {
-                    System.out.println("MOOD = " + mood);
-                    System.out.println("INTENT = " + intent);
-                    String recommendedMoods = "Happy + Relaxed";
-                    System.out.println("RECOMMENDED = " + recommendedMoods);
                     return List.of("Happy", "Relaxed");
                 }
-                System.out.println("MOOD = " + mood);
-                System.out.println("INTENT = " + intent);
-                String recommendedMoods = "Sad";
-                System.out.println("RECOMMENDED = " + recommendedMoods);
                 return List.of("Sad");
-            }
-            case "Relaxed" -> {
-                System.out.println("MOOD = " + mood);
-                System.out.println("INTENT = " + intent);
-                String recommendedMoods = "Relaxed";
-                System.out.println("RECOMMENDED = " + recommendedMoods);
+
+            case "Relaxed":
                 return List.of("Relaxed");
-            }
-            default -> {
+
+            default:
                 return List.of(mood);
-            }
         }
     }
 }

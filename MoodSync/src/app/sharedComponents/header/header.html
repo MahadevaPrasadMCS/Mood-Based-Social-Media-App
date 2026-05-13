@@ -205,8 +205,10 @@
       <input
         type="text"
         class="search-input"
-        placeholder="Search posts, people..."
-      >
+        placeholder="Search users or captions..."
+        [(ngModel)]="searchText"
+        (input)="onSearchChange()"
+      />
 
     </div>
 

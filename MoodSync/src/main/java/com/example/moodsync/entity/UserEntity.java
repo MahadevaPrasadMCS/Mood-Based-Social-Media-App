@@ -15,6 +15,10 @@ public class UserEntity {
 
   private String userName;
 
+  private String bio;
+
+  private String profileImage;
+
   @Column(unique = true)
   private String email;
 
@@ -37,6 +41,22 @@ public class UserEntity {
 
   public void setUserName(String userName) {
     this.userName = userName;
+  }
+
+  public String getBio() {
+    return bio;
+  }
+
+  public void setBio(String bio) {
+    this.bio = bio;
+  }
+
+  public String getProfileImage() {
+    return profileImage;
+  }
+
+  public void setProfileImage(String profileImage) {
+    this.profileImage = profileImage;
   }
 
   public String getEmail() {

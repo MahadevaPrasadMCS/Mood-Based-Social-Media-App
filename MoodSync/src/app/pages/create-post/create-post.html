@@ -22,8 +22,11 @@
     <!-- FORM -->
 
     <form
+
       [formGroup]="postForm"
+
       (ngSubmit)="createPost()"
+
       class="post-form"
     >
 
@@ -48,63 +51,36 @@
 
       </div>
 
-      <!-- MOOD + INTENT -->
+      <!-- MOOD -->
 
-      <div class="form-row">
+      <div class="form-group">
 
-        <!-- MOOD -->
+        <label>
+          Select Mood
+        </label>
 
-        <div class="form-group">
+        <select
+          formControlName="mood"
+        >
 
-          <label>
-            Select Mood
-          </label>
+          <option
 
-          <select
-            formControlName="mood"
+            *ngFor="
+              let mood of moods
+            "
+
+            [value]="mood"
           >
 
-            <option
-              *ngFor="let mood of moods"
-              [value]="mood"
-            >
+            {{ mood }}
 
-              {{ mood }}
+          </option>
 
-            </option>
-
-          </select>
-
-        </div>
-
-        <!-- INTENT -->
-
-        <div class="form-group">
-
-          <label>
-            Select Intent
-          </label>
-
-          <select
-            formControlName="intent"
-          >
-
-            <option
-              *ngFor="let intent of intents"
-              [value]="intent"
-            >
-
-              {{ intent }}
-
-            </option>
-
-          </select>
-
-        </div>
+        </select>
 
       </div>
 
-      <!-- IMAGE -->
+      <!-- IMAGE UPLOAD -->
 
       <div class="form-group">
 
@@ -115,8 +91,11 @@
         <div class="upload-box">
 
           <input
+
             type="file"
+
             accept="image/*"
+
             (change)="onImageSelect($event)"
           />
 
@@ -128,16 +107,116 @@
 
       </div>
 
+      <!-- IMAGE EDITOR -->
+
+      <div
+
+        class="editor-wrapper"
+
+        *ngIf="imageChangedEvent"
+      >
+
+        <!-- CROPPER -->
+
+        <image-cropper
+
+          [imageChangedEvent]="
+            imageChangedEvent
+          "
+
+          [maintainAspectRatio]="false"
+
+          [resizeToWidth]="1080"
+
+          [transform]="{
+            scale: zoomScale,
+            rotate: rotation
+          }"
+
+          format="png"
+
+          (imageCropped)="
+            imageCropped($event)
+          "
+
+        >
+        </image-cropper>
+
+        <!-- CONTROLS -->
+
+        <div class="editor-controls">
+
+          <!-- ZOOM -->
+
+          <button
+
+            type="button"
+
+            (click)="zoomOut()"
+          >
+
+            ➖
+
+          </button>
+
+          <button
+
+            type="button"
+
+            (click)="zoomIn()"
+          >
+
+            ➕
+
+          </button>
+
+          <!-- ROTATE -->
+
+          <button
+
+            type="button"
+
+            (click)="rotateLeft()"
+          >
+
+            ↺
+
+          </button>
+
+          <button
+
+            type="button"
+
+            (click)="rotateRight()"
+          >
+
+            ↻
+
+          </button>
+
+        </div>
+
+      </div>
+
       <!-- PREVIEW -->
 
       <div
+
         class="preview-wrapper"
+
         *ngIf="imagePreview"
       >
 
+        <h4>
+          Preview
+        </h4>
+
         <img
+
           [src]="imagePreview"
+
           alt="Preview"
+
           class="preview-image"
         />
 
@@ -148,7 +227,9 @@
       <div class="post-actions">
 
         <button
+
           type="button"
+
           class="cancel-btn"
         >
 
@@ -157,14 +238,25 @@
         </button>
 
         <button
+
           type="submit"
+
           class="post-btn"
+
           [disabled]="isUploading"
         >
 
-          {{ isUploading
-              ? 'Posting...'
-              : 'Post'
+          {{
+
+            isUploading
+
+              ?
+
+              'Posting...'
+
+              :
+
+              'Post'
           }}
 
         </button>
@@ -201,26 +293,30 @@
           Respect others
         </li>
 
+        <li>
+          Share meaningful moments
+        </li>
+
       </ul>
 
     </div>
 
-    <!-- RECENT POSTS -->
+    <!-- MOOD GUIDE -->
 
     <div class="sidebar-card">
 
       <h3>
-        Recent Posts
+        Mood Guide
       </h3>
 
       <div class="recent-post">
 
         <strong>
-          Ananya
+          😊 Happy
         </strong>
 
         <p>
-          Feeling grateful today 🌿
+          Positive and joyful moments
         </p>
 
       </div>
@@ -228,11 +324,35 @@
       <div class="recent-post">
 
         <strong>
-          Rohan
+          😔 Sad
         </strong>
 
         <p>
-          Coding all night 💻
+          Emotional or difficult moments
+        </p>
+
+      </div>
+
+      <div class="recent-post">
+
+        <strong>
+          🌿 Relax
+        </strong>
+
+        <p>
+          Peaceful and calm vibes
+        </p>
+
+      </div>
+
+      <div class="recent-post">
+
+        <strong>
+          😵 Stress
+        </strong>
+
+        <p>
+          Challenging and overwhelming moments
         </p>
 
       </div>

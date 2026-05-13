@@ -2,14 +2,20 @@ import { CommonModule } from '@angular/common';
 
 import {
   Component,
-  OnInit
+  OnInit,
+  ChangeDetectorRef
 } from '@angular/core';
+
+import { combineLatest } from 'rxjs';
 
 import { PostCard }
 from '../../sharedComponents/post-card/post-card';
 
-import { FeedFilterService } from '../../services/filterService/feedfilterservice';
-import { PostService } from '../../services/postService/postservice';
+import { FeedFilterService }
+from '../../services/filterService/feedfilterservice';
+
+import { PostService }
+from '../../services/postService/postservice';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,9 +41,7 @@ implements OnInit {
 
     'Most Recent',
     'Trending',
-    'Popular',
-    'Following'
-
+    'Popular'
   ];
 
   selectedFilter =
@@ -52,92 +56,265 @@ implements OnInit {
   selectedIntent =
     'Improve';
 
+  searchText = '';
+
   /* ---------------- POSTS ---------------- */
 
   allPosts: any[] = [];
 
   filteredPosts: any[] = [];
 
+  /* ---------------- EMPTY STATES ---------------- */
+
+  emptyTitle =
+    '';
+
+  emptyMessage =
+    '';
+
   /* ---------------- CONSTRUCTOR ---------------- */
 
   constructor(
+
     private feedFilterService:
     FeedFilterService,
-    private postService: PostService
+
+    private postService:
+    PostService,
+
+    private cdr:
+    ChangeDetectorRef
+
   ) {}
 
   /* ---------------- INIT ---------------- */
 
   ngOnInit(): void {
 
-    this.feedFilterService
-      .selectedMood$
-      .subscribe(mood => {
+  combineLatest([
 
-        this.selectedMood = mood;
+    this.feedFilterService.selectedMood$,
 
-        this.filterPosts();
-      });
+    this.feedFilterService.selectedIntent$,
 
-    this.feedFilterService
-      .selectedIntent$
-      .subscribe(intent => {
+    this.feedFilterService.search$
 
-        this.selectedIntent = intent;
+  ])
 
-        this.filterPosts();
+  .subscribe(([mood, intent, search]) => {
+
+    this.selectedMood = mood;
+
+    this.selectedIntent = intent;
+
+    this.searchText = search;
+
+    this.loadFeed();
+  });
+}
+  /* ---------------- LOAD POSTS ---------------- */
+
+  loadFeed() {
+
+    const currentUser =
+
+      JSON.parse(
+
+        localStorage.getItem(
+          'user'
+        ) || '{}'
+      );
+
+    this.postService
+
+      .getFeedPosts(
+
+        currentUser.id,
+
+        this.selectedMood,
+
+        this.selectedIntent
+      )
+
+      .subscribe({
+
+        next: (posts: any) => {
+
+          this.allPosts = posts;
+
+          this.applyFilters();
+
+          this.filteredPosts = [
+            ...this.filteredPosts
+          ];
+
+          this.cdr.markForCheck();
+
+          console.log(
+            'FEED POSTS:',
+            posts
+          );
+        },
+
+        error: (error) => {
+
+          console.error(error);
+        }
       });
   }
 
-  /* ---------------- FILTER POSTS ---------------- */
+  /* ---------------- APPLY FILTERS ---------------- */
 
-  filterPosts() {
+  applyFilters() {
 
-  const currentUser =
+    let posts = [
+      ...this.allPosts
+    ];
 
-    JSON.parse(
+    /* ---------------- SEARCH ---------------- */
 
-      localStorage.getItem(
-        'user'
-      ) || '{}'
-    );
+    if (
+      this.searchText &&
+      this.searchText.trim() !== ''
+    ) {
 
-  this.postService
+      const search =
 
-    .getFeedPosts(
+        this.searchText
+          .toLowerCase();
 
-      currentUser.id,
+      posts = posts.filter(post =>
 
-      this.selectedMood,
+        post.username
+          ?.toLowerCase()
+          .includes(search)
 
-      this.selectedIntent
-    )
+        ||
 
-    .subscribe({
+        post.caption
+          ?.toLowerCase()
+          .includes(search)
+      );
+    }
 
-      next: (posts: any) => {
+    /* ---------------- SORT ---------------- */
 
-        this.allPosts = posts;
+    posts = this.sortPosts(posts);
 
-        this.filteredPosts =
-          [...posts];
+    this.filteredPosts = posts;
 
-        this.sortPosts();
+    /* ---------------- EMPTY STATES ---------------- */
 
-        console.log(
-          'FEED POSTS:',
-          posts
-        );
-      },
+    this.updateEmptyState();
+  }
 
-      error: (error) => {
+  /* ---------------- SORT POSTS ---------------- */
 
-        console.error(error);
-      }
-    });
-}
+  sortPosts(posts: any[]) {
 
-  /* ---------------- FILTER DROPDOWN ---------------- */
+    /* ---------------- MOST RECENT ---------------- */
+
+    if (
+      this.selectedFilter ===
+      'Most Recent'
+    ) {
+
+      return posts.sort(
+
+        (a, b) =>
+
+          new Date(b.createdAt)
+            .getTime()
+
+          -
+
+          new Date(a.createdAt)
+            .getTime()
+      );
+    }
+
+    /* ---------------- POPULAR ---------------- */
+
+    if (
+      this.selectedFilter ===
+      'Popular'
+    ) {
+
+      return posts.sort(
+
+        (a, b) =>
+
+          b.likes - a.likes
+      );
+    }
+
+    /* ---------------- TRENDING ---------------- */
+
+    if (
+      this.selectedFilter ===
+      'Trending'
+    ) {
+
+      return posts.sort(
+
+        (a, b) => {
+
+          const hoursA =
+
+            (
+              new Date().getTime()
+
+              -
+
+              new Date(a.createdAt)
+                .getTime()
+
+            ) / 3600000;
+
+          const hoursB =
+
+            (
+              new Date().getTime()
+
+              -
+
+              new Date(b.createdAt)
+                .getTime()
+
+            ) / 3600000;
+
+          const scoreA =
+
+            a.likes / (
+              hoursA + 1
+            );
+
+          const scoreB =
+
+            b.likes / (
+              hoursB + 1
+            );
+
+          return scoreB - scoreA;
+        }
+      );
+    }
+
+    return posts;
+  }
+
+  /* ---------------- SELECT FILTER ---------------- */
+
+  selectFilter(filter: string) {
+
+    this.selectedFilter = filter;
+
+    this.applyFilters();
+
+    this.isFilterDropdownOpen = false;
+  }
+
+  /* ---------------- DROPDOWN ---------------- */
 
   toggleFilterDropdown() {
 
@@ -145,44 +322,49 @@ implements OnInit {
       !this.isFilterDropdownOpen;
   }
 
-  sortPosts() {
+  /* ---------------- EMPTY STATE ---------------- */
+
+  updateEmptyState() {
+
+    /* SEARCH EMPTY */
 
     if (
-      this.selectedFilter ===
-      'Popular'
+
+      this.searchText.trim() !== '' &&
+
+      this.filteredPosts.length === 0
+
     ) {
 
-      this.filteredPosts.sort(
-        (a, b) =>
-          b.likes - a.likes
-      );
+      this.emptyTitle =
+        'No search results';
+
+      this.emptyMessage =
+
+        `No posts found for "${this.searchText}"`;
+
+      return;
     }
 
-    else if (
-      this.selectedFilter ===
-      'Most Recent'
+    /* MOOD EMPTY */
+
+    if (
+      this.filteredPosts.length === 0
     ) {
 
-      this.filteredPosts.sort(
-        (a, b) =>
+      this.emptyTitle =
+        'No posts available';
 
-          new Date(b.createdAt)
-          .getTime()
+      this.emptyMessage =
 
-          -
+        `No posts found for ${this.selectedMood} mood and ${this.selectedIntent} intent`;
 
-          new Date(a.createdAt)
-          .getTime()
-      );
+      return;
     }
-  }
 
-  selectFilter(filter: string) {
+    /* RESET */
 
-    this.selectedFilter = filter;
-
-    this.sortPosts();
-
-    this.isFilterDropdownOpen = false;
+    this.emptyTitle = '';
+    this.emptyMessage = '';
   }
 }

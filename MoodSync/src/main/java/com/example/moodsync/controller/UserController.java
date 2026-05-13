@@ -1,7 +1,8 @@
 package com.example.moodsync.controller;
 
-import com.example.moodsync.dto.LoginRequest;
-import com.example.moodsync.dto.RegisterRequest;
+import com.example.moodsync.dto.requests.LoginRequest;
+import com.example.moodsync.dto.requests.RegisterRequest;
+import com.example.moodsync.dto.requests.UpdateProfileRequest;
 import org.springframework.web.bind.annotation.*;
 import com.example.moodsync.service.UserService;
 
@@ -26,5 +27,19 @@ public class UserController {
   @PostMapping("/login")
   public Map<String, Object> login(@RequestBody LoginRequest request) {
     return userService.login(request);
+  }
+
+  @PutMapping("/profile/{userId}")
+  public Map<String, Object>
+  updateProfile(
+    @PathVariable Long userId,
+    @RequestBody
+    UpdateProfileRequest request
+  ) {
+    return userService
+      .updateProfile(
+        userId,
+        request
+      );
   }
 }

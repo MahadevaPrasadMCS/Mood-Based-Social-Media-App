@@ -1,9 +1,18 @@
-package com.example.moodsync.dto;
+package com.example.moodsync.dto.requests;
 
-public class LoginRequest {
+public class RegisterRequest {
 
+  private String userName;
   private String email;
   private String password;
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
 
   public String getEmail() {
     return email;

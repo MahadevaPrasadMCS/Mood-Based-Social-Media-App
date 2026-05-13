@@ -27,8 +27,30 @@ export class Authservice {
     );
   }
 
+  updateProfile(
+
+    userId: number,
+
+    payload: any
+
+  ) {
+
+    return this.http.put(
+
+      `${this.API_URL}/profile/${userId}`,
+
+      payload
+    );
+  }
+
   saveUser(user: any) {
-    localStorage.setItem('user', JSON.stringify(user));
+
+    localStorage.setItem(
+
+      'user',
+
+      JSON.stringify(user)
+    );
   }
 
   getUser() {

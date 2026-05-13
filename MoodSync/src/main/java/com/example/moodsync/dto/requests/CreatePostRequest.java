@@ -1,4 +1,4 @@
-package com.example.moodsync.dto;
+package com.example.moodsync.dto.requests;
 
 public class CreatePostRequest {
 

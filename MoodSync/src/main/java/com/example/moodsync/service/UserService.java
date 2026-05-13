@@ -1,7 +1,8 @@
 package com.example.moodsync.service;
 
-import com.example.moodsync.dto.LoginRequest;
-import com.example.moodsync.dto.RegisterRequest;
+import com.example.moodsync.dto.requests.LoginRequest;
+import com.example.moodsync.dto.requests.RegisterRequest;
+import com.example.moodsync.dto.requests.UpdateProfileRequest;
 import com.example.moodsync.entity.UserEntity;
 import org.springframework.stereotype.Service;
 import com.example.moodsync.repository.UserRepository;
@@ -45,7 +46,9 @@ public class UserService {
       "user", Map.of(
         "id", user.getId(),
         "username", user.getUserName(),
-        "email", user.getEmail()
+        "email", user.getEmail(),
+        "bio", "",
+        "profileImage", ""
       )
     );
   }
@@ -79,7 +82,84 @@ public class UserService {
       "user", Map.of(
         "id", user.getId(),
         "username", user.getUserName(),
-        "email", user.getEmail()
+        "email", user.getEmail(),
+        "bio",
+
+        user.getBio() != null
+          ? user.getBio()
+          : "",
+
+        "profileImage",
+
+        user.getProfileImage() != null
+          ? user.getProfileImage()
+          : ""
+      )
+    );
+  }
+  public Map<String, Object>
+
+  updateProfile(
+
+    Long userId,
+
+    UpdateProfileRequest request
+
+  ) {
+
+    UserEntity user =
+
+      userRepository
+
+        .findById(userId)
+
+        .orElseThrow();
+
+    /* UPDATE USERNAME */
+
+    user.setUserName(
+
+      request.getUserName()
+    );
+
+    /* UPDATE BIO */
+
+    user.setBio(
+
+      request.getBio()
+    );
+
+    /* UPDATE PROFILE IMAGE */
+
+    user.setProfileImage(
+
+      request.getProfileImage()
+    );
+
+    userRepository.save(user);
+
+    return Map.of(
+
+      "success", true,
+
+      "message",
+      "Profile updated successfully",
+
+      "user", Map.of(
+
+        "id", user.getId(),
+
+        "username",
+        user.getUserName(),
+
+        "email",
+        user.getEmail(),
+
+        "bio",
+        user.getBio(),
+
+        "profileImage",
+        user.getProfileImage()
       )
     );
   }

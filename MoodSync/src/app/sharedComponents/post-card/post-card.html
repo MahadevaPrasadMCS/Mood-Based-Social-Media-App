@@ -19,7 +19,9 @@
                 <span class="username">
                     {{ username }}
                 </span>
-
+                <span class="post-time">
+                  {{ getTimeAgo(createdAt) }}
+                </span>
         <span class="mood-badge">
                     {{ mood }}
                 </span>

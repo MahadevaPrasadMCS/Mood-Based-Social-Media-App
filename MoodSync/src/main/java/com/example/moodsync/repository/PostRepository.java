@@ -1,7 +1,9 @@
 package com.example.moodsync.repository;
 
 import com.example.moodsync.entity.PostEntity;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,16 +12,18 @@ import java.util.List;
 public interface PostRepository
   extends JpaRepository<PostEntity, Long> {
 
+  /* ---------------- USER POSTS ---------------- */
+
   List<PostEntity>
   findByUserId(Long userId);
 
-  List<PostEntity>
-  findByUserIdNot(Long userId);
+  /* ---------------- FEED POSTS ---------------- */
 
   List<PostEntity>
-  findByUserIdNotAndMoodAndIntent(
+  findByUserIdNotAndMoodIn(
+
     Long userId,
-    String mood,
-    String intent
+
+    List<String> moods
   );
 }

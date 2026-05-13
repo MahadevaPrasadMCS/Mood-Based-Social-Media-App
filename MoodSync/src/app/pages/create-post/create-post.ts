@@ -3,14 +3,30 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
+
   FormBuilder,
+
   FormGroup,
+
   ReactiveFormsModule,
+
   Validators
+
 } from '@angular/forms';
 
-import { CloudinaryService } from '../../services/cloudService/cloudinaryservice';
-import { PostService } from '../../services/postService/postservice';
+import {
+
+  ImageCropperComponent,
+
+  ImageCroppedEvent
+
+} from 'ngx-image-cropper';
+
+import { CloudinaryService }
+from '../../services/cloudService/cloudinaryservice';
+
+import { PostService }
+from '../../services/postService/postservice';
 
 @Component({
   selector: 'app-create-post',
@@ -18,8 +34,12 @@ import { PostService } from '../../services/postService/postservice';
   standalone: true,
 
   imports: [
+
     CommonModule,
-    ReactiveFormsModule
+
+    ReactiveFormsModule,
+
+    ImageCropperComponent
   ],
 
   templateUrl: './create-post.html',
@@ -29,7 +49,11 @@ import { PostService } from '../../services/postService/postservice';
 
 export class CreatePost {
 
+  /* ---------------- FORM ---------------- */
+
   postForm!: FormGroup;
+
+  /* ---------------- IMAGE ---------------- */
 
   selectedImage:
     File | null = null;
@@ -37,20 +61,32 @@ export class CreatePost {
   imagePreview:
     string | ArrayBuffer | null = null;
 
+  imageChangedEvent: any = '';
+
+  croppedImage: any = '';
+
+  zoomScale = 1;
+
+  rotation = 0;
+
+  /* ---------------- LOADING ---------------- */
+
   isUploading = false;
 
+  /* ---------------- MOODS ---------------- */
+
   moods = [
+
     'Happy',
+
     'Sad',
-    'Relaxed',
-    'Focused',
-    'Excited'
+
+    'Relax',
+
+    'Stress'
   ];
 
-  intents = [
-    'Improve',
-    'Be In'
-  ];
+  /* ---------------- CONSTRUCTOR ---------------- */
 
   constructor(
 
@@ -59,25 +95,26 @@ export class CreatePost {
     private cloudinaryService:
     CloudinaryService,
 
-    private postService: PostService
+    private postService:
+    PostService
 
   ) {
 
     this.postForm =
+
       this.fb.group({
 
         caption: [
+
           '',
+
           Validators.required
         ],
 
         mood: [
-          this.moods[0],
-          Validators.required
-        ],
 
-        intent: [
-          this.intents[0],
+          this.moods[0],
+
           Validators.required
         ]
       });
@@ -87,6 +124,9 @@ export class CreatePost {
 
   onImageSelect(event: any) {
 
+    this.imageChangedEvent =
+      event;
+
     const file =
       event.target.files[0];
 
@@ -94,141 +134,169 @@ export class CreatePost {
       return;
     }
 
-    this.selectedImage = file;
-
-    const reader =
-      new FileReader();
-
-    reader.onload = () => {
-
-      this.imagePreview =
-        reader.result;
-    };
-
-    reader.readAsDataURL(file);
+    this.selectedImage =
+      file;
   }
 
-  /* ---------------- SUBMIT ---------------- */
+  /* ---------------- IMAGE CROPPED ---------------- */
+
+  imageCropped(
+    event: ImageCroppedEvent
+  ) {
+
+    this.croppedImage =
+      event.blob;
+
+    this.imagePreview =
+      event.objectUrl || '';
+  }
+
+  /* ---------------- ROTATE ---------------- */
+
+  rotateLeft() {
+
+    this.rotation -= 90;
+  }
+
+  rotateRight() {
+
+    this.rotation += 90;
+  }
+
+  /* ---------------- ZOOM ---------------- */
+
+  zoomIn() {
+
+    this.zoomScale += 0.1;
+  }
+
+  zoomOut() {
+
+    if (this.zoomScale > 0.2) {
+
+      this.zoomScale -= 0.1;
+    }
+  }
+
+  /* ---------------- CREATE POST ---------------- */
 
   createPost() {
 
-  if (
-    this.postForm.invalid ||
-    !this.selectedImage
-  ) {
+    if (
+      this.postForm.invalid ||
+      !this.croppedImage
+    ) {
 
-    return;
-  }
+      return;
+    }
 
-  this.isUploading = true;
+    this.isUploading = true;
 
-  /* ---------------- UPLOAD IMAGE ---------------- */
+    /* ---------------- CONVERT BLOB TO FILE ---------------- */
 
-  this.cloudinaryService
-    .uploadImage(
-      this.selectedImage
-    )
+    const file = new File(
 
-    .subscribe({
+      [this.croppedImage],
 
-      next: (response: any) => {
+      'post-image.png',
 
-        const imageUrl =
-          response.secure_url;
-
-        console.log(
-          'Cloudinary URL:',
-          imageUrl
-        );
-
-        /* ---------------- USER ---------------- */
-
-        const user =
-          JSON.parse(
-
-            localStorage.getItem(
-              'user'
-            ) || '{}'
-          );
-
-        /* ---------------- PAYLOAD ---------------- */
-
-        const payload = {
-
-          userId: user.id,
-
-          caption:
-            this.postForm.value.caption,
-
-          mood:
-            this.postForm.value.mood,
-
-          intent:
-            this.postForm.value.intent,
-
-          imageUrl
-        };
-
-        console.log(
-          'POST PAYLOAD:',
-          payload
-        );
-
-        /* ---------------- SAVE POST ---------------- */
-
-        this.postService
-          .createPost(payload)
-
-          .subscribe({
-
-            next: (res: any) => {
-
-              console.log(
-                'POST SAVED:',
-                res
-              );
-
-              this.isUploading = false;
-
-              alert(
-                'Post created successfully 🚀'
-              );
-
-              this.postForm.reset({
-
-                mood: this.moods[0],
-
-                intent: this.intents[0]
-              });
-
-              this.imagePreview = null;
-
-              this.selectedImage = null;
-            },
-
-            error: (error) => {
-
-              console.error(error);
-
-              this.isUploading = false;
-
-              alert(
-                'Failed to save post'
-              );
-            }
-          });
-      },
-
-      error: (error) => {
-
-        console.error(error);
-
-        this.isUploading = false;
-
-        alert(
-          'Image upload failed'
-        );
+      {
+        type: 'image/png'
       }
-    });
+    );
+
+    /* ---------------- UPLOAD IMAGE ---------------- */
+
+    this.cloudinaryService
+
+      .uploadImage(file)
+
+      .subscribe({
+
+        next: (response: any) => {
+
+          const imageUrl =
+
+            response.secure_url;
+
+          /* ---------------- USER ---------------- */
+
+          const user =
+
+            JSON.parse(
+
+              localStorage.getItem(
+                'user'
+              ) || '{}'
+            );
+
+          /* ---------------- PAYLOAD ---------------- */
+
+          const payload = {
+
+            userId: user.id,
+
+            caption:
+              this.postForm.value.caption,
+
+            mood:
+              this.postForm.value.mood,
+
+            imageUrl
+          };
+
+          /* ---------------- SAVE POST ---------------- */
+
+          this.postService
+
+            .createPost(payload)
+
+            .subscribe({
+
+              next: () => {
+
+                this.isUploading = false;
+
+                alert(
+                  'Post created 🚀'
+                );
+
+                this.postForm.reset({
+
+                  mood:
+                    this.moods[0]
+                });
+
+                this.imagePreview =
+                  null;
+
+                this.selectedImage =
+                  null;
+
+                this.imageChangedEvent =
+                  '';
+
+                this.croppedImage =
+                  '';
+              },
+
+              error: (error) => {
+
+                console.error(error);
+
+                this.isUploading =
+                  false;
+              }
+            });
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+          this.isUploading =
+            false;
+        }
+      });
   }
 }

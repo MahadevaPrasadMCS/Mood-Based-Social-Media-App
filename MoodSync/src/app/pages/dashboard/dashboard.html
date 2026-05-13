@@ -129,11 +129,15 @@
     [postId]="post.id"
     
     [username]="
-      post.user.userName
+      post.username
     "
 
     [userAvatar]="
-      'https://i.pravatar.cc/100'
+      post.userAvatar
+    "
+
+    [createdAt]="
+    post.createdAt
     "
 
     [mood]="
@@ -152,10 +156,38 @@
       post.likes
     "
 
-    [isLiked]="false"
+    [isLiked]="
+    post.liked"
 
   >
   </app-post-card>
+  <!-- EMPTY STATE -->
 
+<div
+
+  class="empty-feed"
+
+  *ngIf="
+    filteredPosts.length === 0
+  "
+>
+
+  <div class="empty-icon">
+
+    🔍
+
+  </div>
+
+  <h3>
+
+    {{ emptyTitle }}
+
+  </h3>
+
+  <p>
+    {{ emptyMessage }}
+  </p>
+
+</div>
   </div>
 </div>

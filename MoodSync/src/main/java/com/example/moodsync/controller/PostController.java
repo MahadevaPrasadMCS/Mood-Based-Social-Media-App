@@ -1,6 +1,6 @@
 package com.example.moodsync.controller;
 
-import com.example.moodsync.dto.CreatePostRequest;
+import com.example.moodsync.dto.requests.CreatePostRequest;
 import com.example.moodsync.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

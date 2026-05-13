@@ -2,18 +2,21 @@ import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FeedFilterService } from '../../services/filterService/feedfilterservice';
+import { Authservice } from '../../services/authService/authservice';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './header.html',
   styleUrls: ['./header.css'],
 })
 export class Header {
 
   constructor(private router: Router,
-    private feedFilterService: FeedFilterService
+    private feedFilterService: FeedFilterService,
+    private authService: Authservice
   ) {}
   /* ---------------- MOOD DROPDOWN ---------------- */
 
@@ -22,10 +25,8 @@ export class Header {
   moods = [
     { label: 'Happy', icon: '😊' },
     { label: 'Sad', icon: '😔' },
-    { label: 'Angry', icon: '😠' },
     { label: 'Relaxed', icon: '🌿' },
-    { label: 'Excited', icon: '🔥' },
-    { label: 'Focused', icon: '🎯' }
+    { label: 'Stressed', icon: '😰' }
   ];
 
   selectedMood = this.moods[0];
@@ -65,6 +66,7 @@ export class Header {
   }
   
   onLogout() {
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
   
@@ -83,9 +85,13 @@ export class Header {
 
     this.selectedMood = mood;
 
-    this.feedFilterService.setMood(
+    console.log(
+      'SELECTED MOOD:',
       mood.label
     );
+
+    this.feedFilterService
+      .setMood(mood.label);
 
     this.isMoodDropdownOpen = false;
   }
@@ -110,6 +116,17 @@ export class Header {
     );
 
     this.isIntentDropdownOpen = false;
+  }
+
+  /* ---------------- SEARCH ---------------- */
+
+  searchText = '';
+
+  onSearchChange() {
+
+    this.feedFilterService.setSearch(
+      this.searchText
+    );
   }
 
   /* ---------------- CLOSE ON OUTSIDE CLICK ---------------- */

@@ -1,16 +1,23 @@
 package com.example.moodsync.controller;
 
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.moodsync.dto.requests.LoginRequest;
 import com.example.moodsync.dto.requests.RegisterRequest;
 import com.example.moodsync.dto.requests.UpdateProfileRequest;
-import org.springframework.web.bind.annotation.*;
 import com.example.moodsync.service.UserService;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://moodsync-omega.vercel.app")
 public class UserController {
 
   private final UserService userService;

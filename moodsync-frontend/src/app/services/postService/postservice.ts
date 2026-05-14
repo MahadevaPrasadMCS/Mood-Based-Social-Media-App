@@ -12,7 +12,7 @@ import {
 export class PostService {
 
   private API_URL =
-    'http://localhost:8080/api/posts';
+    'https://mood-based-social-media-app.onrender.com/api/posts';
 
   constructor(
     private http: HttpClient

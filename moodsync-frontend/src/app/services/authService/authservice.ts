@@ -9,7 +9,7 @@ import { AuthResponse } from '../../models/AuthResponse.model';
 })
 export class Authservice {
 
-  private readonly API_URL = 'http://localhost:8080/api/auth';
+  private readonly API_URL = 'https://mood-based-social-media-app.onrender.com/api/auth';
 
   constructor(private http: HttpClient) {}
 

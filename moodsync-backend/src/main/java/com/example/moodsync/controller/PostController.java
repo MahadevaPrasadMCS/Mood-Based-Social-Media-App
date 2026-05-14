@@ -15,7 +15,7 @@ import com.example.moodsync.service.PostService;
 
 @RestController
 @RequestMapping("/api/posts")
-@CrossOrigin(origins = "https://moodsync-omega.vercel.app/login")
+@CrossOrigin(origins = "https://moodsync-omega.vercel.app/")
 public class PostController {
 
   private final PostService postService;

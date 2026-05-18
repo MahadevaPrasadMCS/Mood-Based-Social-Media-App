@@ -64,9 +64,9 @@ export class CreatePost {
 
     'Sad',
 
-    'Relax',
+    'Relaxed',
 
-    'Stress'
+    'Stressed'
   ];
 
   /* ---------------- CONSTRUCTOR ---------------- */
